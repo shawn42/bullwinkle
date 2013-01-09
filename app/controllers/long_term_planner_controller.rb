@@ -1,0 +1,3 @@
+class LongTermPlannerController < ApplicationController
+
+end
