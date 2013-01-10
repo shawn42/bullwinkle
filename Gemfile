@@ -4,6 +4,9 @@ ruby "1.9.3"
 gem 'rails', github: 'rails/rails'
 gem 'journey', github: 'rails/journey'
 
+# Better random number generator
+gem "simple-random"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

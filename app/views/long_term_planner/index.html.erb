@@ -1,14 +1,21 @@
 <h1>Long Term Planner!</h1>
 
+<% if @new_balance %>
+  <div>
+    <h2>New Balance!</h2>
+    <div><%= number_to_currency @new_balance %></div>
+  </div>
+<% end %>
+
 <p>
 Calculates the 90 / 70 of the next year given the following:
 </p>
 
-<%= form_tag "#" do %>
+<%= form_tag "/long_term_planner/next_year", :method => :get do %>
   <h2>Starting Points</h2>
   <div>Balance: <%= text_field_tag :balance %></div>
   <div>Contributions: <%= text_field_tag :contributions %></div>
-  <div>Withdrawls: <%= text_field_tag :withdrawls %></div>
+  <div>Withdrawls: <%= text_field_tag :withdraws %></div>
 
   <h2>Investment</h2>
   <p>1 investment, 100% allocation</p>
