@@ -20,4 +20,19 @@ describe LongTermPlanner do
     expect(average_balance).to be < 1_200
   end
 
+  it "returns object containing top 70% interval" do
+    portfolio = Portfolio.new
+    portfolio.add_investment_at_allocation Investment.new(0.10, 1), 1.0
+
+    planner = LongTermPlanner.new 1_000, 0, 0
+    planner.portfolio = portfolio
+
+    top_70 = planner.calculate_next_year.top_70
+
+    expect(top_70).to be > 1_100
+    expect(top_70).to be < 1_110
+  end
+
+  it "returns object containing top 90% interval"
+
 end
