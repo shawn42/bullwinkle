@@ -11,7 +11,7 @@ describe Investment do
 
   it "can return the std_dev in percentage points for normal distributions" do
     i = Investment.new 0.10, 1
-    expect(i.std_dev_in_percentage_points).to eq(0.01)
+    expect(i.std_dev_as_percentage).to eq(0.01)
   end
 
 end

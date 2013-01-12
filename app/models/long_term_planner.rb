@@ -20,19 +20,19 @@ class LongTermPlanner
     @random.set_seed Time.now
 
     SIMULATION_LENGTH.times do
-      sim_results << balance_after_portfolios + @contributions - @withdraws
+      sim_results << calculate_new_balance_from_portfolio + @contributions - @withdraws
     end
 
     PlannerResults.new(
       average_results(sim_results),
-      top_interval(sim_results, 0.7),
-      top_interval(sim_results, 0.9)
+      top_result_at_percentage(sim_results, 0.7),
+      top_result_at_percentage(sim_results, 0.9)
     )
   end
 
   protected
 
-  def balance_after_portfolios
+  def calculate_new_balance_from_portfolio
     return @current_balance unless @portfolio
     new_balance = @current_balance
 
@@ -44,14 +44,14 @@ class LongTermPlanner
   end
 
   def sample_investment(investment)
-    @random.normal(investment.annual_yield, investment.std_dev_in_percentage_points)
+    @random.normal(investment.annual_yield, investment.std_dev_as_percentage)
   end
 
   def average_results(results)
     results.inject(0) {|memo, result| memo += result } / results.size.to_f
   end
 
-  def top_interval(results, top_percentage)
+  def top_result_at_percentage(results, top_percentage)
     results.sort[
       ((results.size * top_percentage) - 1).to_i
     ].to_i
