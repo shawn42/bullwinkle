@@ -4,7 +4,7 @@ describe LongTermPlanner do
 
   it "calculates next year's balance from widthdraws and contributions" do
     planner = LongTermPlanner.new 1_000, 1_000, 500
-    expect(planner.calculate_next_year).to eq(1_500)
+    expect(planner.calculate_next_year.average).to eq(1_500)
   end
 
   it "can take a portfolio of investments into account when calculating" do
@@ -13,10 +13,11 @@ describe LongTermPlanner do
 
     planner = LongTermPlanner.new 1_000, 0, 0
     planner.portfolio = portfolio
+    average_balance = planner.calculate_next_year.average
 
     # + 10% of the 1_000 + std_dev
-    expect(planner.calculate_next_year).to be > 1_000
-    expect(planner.calculate_next_year).to be < 1_200
+    expect(average_balance).to be > 1_000
+    expect(average_balance).to be < 1_200
   end
 
 end

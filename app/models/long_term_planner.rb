@@ -2,6 +2,8 @@ class LongTermPlanner
 
   SIMULATION_LENGTH = 1_000
 
+  PlannerResults = Struct.new(:average)
+
   attr_accessor :portfolio
 
   def initialize(current_balance, contributions, withdraws)
@@ -21,7 +23,7 @@ class LongTermPlanner
       sim_results << balance_after_portfolios + @contributions - @withdraws
     end
 
-    average_results(sim_results)
+    PlannerResults.new average_results(sim_results)
   end
 
   protected
