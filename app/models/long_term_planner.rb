@@ -2,7 +2,7 @@ class LongTermPlanner
 
   SIMULATION_LENGTH = 1_000
 
-  PlannerResults = Struct.new(:average, :top_70)
+  PlannerResults = Struct.new(:average, :top_70, :top_90)
 
   attr_accessor :portfolio
 
@@ -25,7 +25,8 @@ class LongTermPlanner
 
     PlannerResults.new(
       average_results(sim_results),
-      top_interval(sim_results, 0.7)
+      top_interval(sim_results, 0.7),
+      top_interval(sim_results, 0.9)
     )
   end
 
