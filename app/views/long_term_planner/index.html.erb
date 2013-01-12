@@ -1,9 +1,11 @@
 <h1>Long Term Planner!</h1>
 
-<% if @new_balance %>
+<% if @planner_results %>
   <div>
-    <h2>New Balance!</h2>
-    <div><%= number_to_currency @new_balance %></div>
+    <h2>Calculated values</h2>
+    <div>90%: <%= number_to_currency @planner_results.top_90 %></div>
+    <div>70%: <%= number_to_currency @planner_results.top_70 %></div>
+    <div>Average: <%= number_to_currency @planner_results.average %></div>
   </div>
 <% end %>
 

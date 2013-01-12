@@ -26,7 +26,7 @@ class LongTermPlannerController < ApplicationController
     end
 
     @planner.portfolio = @portfolio
-    @new_balance = @planner.calculate_next_year.average
+    @planner_results = @planner.calculate_next_year
 
     render :index
   end

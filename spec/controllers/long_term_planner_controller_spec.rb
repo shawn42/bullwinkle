@@ -19,7 +19,7 @@ describe LongTermPlannerController do
       assert_template "index"
 
       expect(assigns(:planner)).to_not be_nil
-      expect(assigns(:new_balance)).to eq(1_500)
+      expect(assigns(:planner_results).average).to eq(1_500)
     end
 
     it "applies Investments if requested" do
@@ -27,8 +27,8 @@ describe LongTermPlannerController do
         :annual_yield => "0.1", :std_dev => "1"
       }
 
-      expect(assigns(:new_balance)).to be > 1_000
-      expect(assigns(:new_balance)).to be < 1_200
+      expect(assigns(:planner_results).average).to be > 1_000
+      expect(assigns(:planner_results).average).to be < 1_200
     end
 
     it "applies inflation as a negative investment" do
@@ -36,8 +36,8 @@ describe LongTermPlannerController do
         :annual_yield => "0.1", :std_dev => "1"
       }
 
-      expect(assigns(:new_balance)).to be > 800
-      expect(assigns(:new_balance)).to be < 1_000
+      expect(assigns(:planner_results).average).to be > 800
+      expect(assigns(:planner_results).average).to be < 1_000
     end
   end
 
