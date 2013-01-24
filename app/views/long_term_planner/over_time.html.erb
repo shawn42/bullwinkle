@@ -1,0 +1,22 @@
+<h1>Results</h1>
+
+<%= link_to "Go Back", "/long_term_planner" %>
+
+<table>
+  <tr>
+    <th>Year</th>
+    <th>Average</th>
+    <th>70%</th>
+    <th>90%</th>
+  </tr>
+  <% @planner_results.each_with_index do |results, index| %>
+    <tr>
+      <td><%= index %></td>
+      <td><%= number_to_currency results.average %></td>
+      <td><%= number_to_currency results.top_70 %></td>
+      <td><%= number_to_currency results.top_90 %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "Go Back", "/long_term_planner" %>

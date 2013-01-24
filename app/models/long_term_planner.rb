@@ -30,6 +30,18 @@ class LongTermPlanner
     )
   end
 
+  def calculate_next_years(year_count)
+    results = []
+
+    year_count.times do
+      year_results = calculate_next_year
+      @current_balance = year_results.average
+      results << year_results
+    end
+
+    results
+  end
+
   protected
 
   def calculate_new_balance_from_portfolio

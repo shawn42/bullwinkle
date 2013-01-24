@@ -41,4 +41,18 @@ describe LongTermPlannerController do
     end
   end
 
+  describe "#over_time" do
+    it "calculates balance changes over successive years" do
+      get :over_time, :balance => 1_000, :contributions => 1_000,
+        :withdraws => 500, :years_to_calculate => 5
+
+      assert_template "over_time"
+
+      expect(assigns(:planner_results).length).to eq(5)
+
+      expect(assigns(:planner_results)[0].average).to eq(1_500)
+      expect(assigns(:planner_results)[4].average).to eq(3_500)
+    end
+  end
+
 end
