@@ -2,6 +2,10 @@
 
 <%= link_to "Go Back", "/long_term_planner" %>
 
+<h1>Pretty Graphs!</h1>
+<div id="chart">
+</div>
+
 <table>
   <tr>
     <th>Year</th>
@@ -20,3 +24,13 @@
 </table>
 
 <%= link_to "Go Back", "/long_term_planner" %>
+
+<%= javascript_tag do %>
+  $(function() {
+    var graph = new LongTermPlanner("#chart");
+    graph.addLine(<%=raw @planner_results.map(&:average).to_json %>, "#f00");
+    graph.addLine(<%=raw @planner_results.map(&:top_70).to_json %>,  "#0f0");
+    graph.addLine(<%=raw @planner_results.map(&:top_90).to_json %>,  "#00f");
+    graph.draw();
+  });
+<% end %>
