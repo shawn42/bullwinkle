@@ -1,40 +1,32 @@
 class LongTermPlanner
 
-  SIMULATION_LENGTH = 1_000
+  attr_accessor :portfolio, :contribution_period_ends
 
-  PlannerResults = Struct.new(:average, :top_70, :top_90)
-
-  attr_accessor :portfolio
-
-  def initialize(current_balance, contributions, withdraws)
+  def initialize(current_balance)
     @current_balance = current_balance
-    @contributions = contributions
-    @withdraws = withdraws
-
-    @random = SimpleRandom.new
   end
 
-  def calculate_next_year
-    sim_count = 0
-    sim_results = []
-    @random.set_seed Time.now
+  def calculate_next_year(contribution = 0, withdraw = 0)
+    action = CalculateOneYear.new
+    action.balance      = @current_balance
+    action.contribution = contribution
+    action.withdraw     = withdraw
 
-    SIMULATION_LENGTH.times do
-      sim_results << calculate_new_balance_from_portfolio + @contributions - @withdraws
-    end
-
-    PlannerResults.new(
-      average_results(sim_results),
-      top_result_at_percentage(sim_results, 0.7),
-      top_result_at_percentage(sim_results, 0.9)
-    )
+    action.run @portfolio
   end
 
-  def calculate_next_years(year_count)
+  # calculation window
+  # contributing years
+  # Withdraw years
+  # contributing amount
+  # withdraw amount
+  def calculate_next_years(years_ahead)
     results = []
 
-    year_count.times do
-      year_results = calculate_next_year
+    years_ahead.times do |year_count|
+      @current_year = year_count
+
+      year_results = calculate_next_year()
       @current_balance = year_results.average
       results << year_results
     end
@@ -44,30 +36,10 @@ class LongTermPlanner
 
   protected
 
-  def calculate_new_balance_from_portfolio
-    return @current_balance unless @portfolio
-    new_balance = @current_balance
-
-    @portfolio.each_investment do |investment, allocation|
-      new_balance += sample_investment(investment) * new_balance * allocation
-    end
-
-    new_balance
+  def contributing?
+    @current_year < @contribution_period_ends
   end
 
-  def sample_investment(investment)
-    @random.normal(investment.annual_yield, investment.std_dev_as_percentage)
-  end
-
-  def average_results(results)
-    results.inject(0) {|memo, result| memo += result } / results.size.to_f
-  end
-
-  def top_result_at_percentage(results, top_percentage)
-    results.sort[
-      ((results.size * top_percentage) - 1).to_i
-    ].to_i
-  end
 
   # Inputs
   #  - Starting Principle (previous year's balance)
