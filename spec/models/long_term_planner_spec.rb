@@ -38,5 +38,23 @@ describe LongTermPlanner do
       expect(results[2].average).to be > 1_200
       expect(results[2].average).to be < 1_400
     end
+
+    it "stops contributions after a set number of years" do
+      planner = LongTermPlanner.new 1_000
+      planner.contribution_period_ends = 2
+
+      life_plan = LifePlan.new
+      life_plan.contribution = 1_000
+      life_plan.contribute_years = 2
+
+      results = planner.calculate_next_years(4, life_plan)
+
+      expect(results.length).to eq(4)
+
+      expect(results[0].average.to_i).to eq(2_000)
+      expect(results[1].average.to_i).to eq(3_000)
+      expect(results[2].average.to_i).to be(3_000)
+      expect(results[3].average.to_i).to be(3_000)
+    end
   end
 end
