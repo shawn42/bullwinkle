@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem "rails", "~> 3.2.0"
+gem 'sqlite3'
 
 # Better random number generator
 gem "simple-random"
@@ -19,10 +20,6 @@ group :assets do
   # gem 'therubyracer', platforms: :ruby
 
   gem 'uglifier', '>= 1.0.3'
-end
-
-group :development do
-  gem 'sqlite3'
 end
 
 group :test, :development do
