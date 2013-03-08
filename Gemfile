@@ -1,8 +1,6 @@
-source :rubygems
-ruby "1.9.3"
+source "https://rubygems.org"
 
-gem 'rails', github: 'rails/rails'
-gem 'journey', github: 'rails/journey'
+gem "rails", "~> 3.2.0"
 
 # Better random number generator
 gem "simple-random"
@@ -10,9 +8,9 @@ gem "simple-random"
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sprockets-rails', github: 'rails/sprockets-rails'
-  gem 'sass-rails',   github: 'rails/sass-rails'
-  gem 'coffee-rails', github: 'rails/coffee-rails'
+  gem 'sprockets-rails'
+  gem 'sass-rails'
+  gem 'coffee-rails'
 
   gem 'd3-rails'
   gem 'jquery-rails'
