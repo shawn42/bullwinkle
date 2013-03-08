@@ -47,7 +47,14 @@ Calculates the 90 / 70 over the next N years of the following:
   <h2>Starting Points</h2>
   <div>Balance: <%= text_field_tag :balance %></div>
   <div>Contributions: <%= text_field_tag :contributions %></div>
-  <div>Withdrawls: <%= text_field_tag :withdraws %></div>
+  <div>Withdraws: <%= text_field_tag :withdraws %></div>
+
+  <h2>Time Frame</h2>
+  <div>Years starting now: <%= text_field_tag :years_to_calculate, 1 %></div>
+
+  <h2>Thresholds</h2>
+  <div>Contributions end after (year from start): <%= text_field_tag :stop_contributions_after_year %></div>
+  <div>Withdraws start after (year from start): <%= text_field_tag :withdraw_after_year %></div>
 
   <h2>Investment</h2>
   <p>1 investment, 100% allocation</p>
@@ -57,9 +64,6 @@ Calculates the 90 / 70 over the next N years of the following:
   <h2>Inflation</h2>
   <div>Yield: <%= text_field_tag "inflation[annual_yield]", "0.025" %></div>
   <div>Std Dev: <%= text_field_tag "inflation[std_dev]", "4.56" %></div>
-
-  <h2>Time Frame</h2>
-  <div>Years starting now: <%= text_field_tag :years_to_calculate, 1 %></div>
 
   <br/>
   <br/>

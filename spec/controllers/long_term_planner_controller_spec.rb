@@ -53,6 +53,21 @@ describe LongTermPlannerController do
       expect(assigns(:planner_results)[0].average).to eq(1_500)
       expect(assigns(:planner_results)[4].average).to eq(3_500)
     end
+
+    it "applies withdraws after a given period of time" do
+      get :over_time, :balance => 1_000, :contributions => 1_000,
+        :withdraws => 500, :years_to_calculate => 10,
+        :stop_contributions_after_year => 5,
+        :withdraw_after_year => 5
+
+      assert_template "over_time"
+
+      expect(assigns(:planner_results).length).to eq(10)
+
+      expect(assigns(:planner_results)[0].average).to eq(2_000)
+      expect(assigns(:planner_results)[4].average).to eq(6_000)
+      expect(assigns(:planner_results)[9].average).to eq(3_500)
+    end
   end
 
 end
