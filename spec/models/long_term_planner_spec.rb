@@ -17,7 +17,7 @@ describe LongTermPlanner do
     end
   end
 
-  describe "#calculate_next_years" do
+  describe "#calculate_life_plan" do
     it "calculates over a period of years" do
       portfolio = Portfolio.new
       portfolio.add_investment_at_allocation Investment.new(0.10, 1), 1.0
@@ -25,7 +25,9 @@ describe LongTermPlanner do
       planner = LongTermPlanner.new 1_000
       planner.portfolio = portfolio
 
-      results = planner.calculate_next_years(3)
+      life_plan = LifePlan.new(3)
+
+      results = planner.calculate_life_plan(life_plan)
 
       expect(results.length).to eq(3)
 
@@ -43,11 +45,11 @@ describe LongTermPlanner do
       planner = LongTermPlanner.new 1_000
       planner.contribution_period_ends = 2
 
-      life_plan = LifePlan.new
+      life_plan = LifePlan.new(4)
       life_plan.contribution = 1_000
       life_plan.contribute_years = 2
 
-      results = planner.calculate_next_years(4, life_plan)
+      results = planner.calculate_life_plan(life_plan)
 
       expect(results.length).to eq(4)
 
@@ -55,6 +57,23 @@ describe LongTermPlanner do
       expect(results[1].average.to_i).to eq(3_000)
       expect(results[2].average.to_i).to be(3_000)
       expect(results[3].average.to_i).to be(3_000)
+    end
+
+    it "starts withdrawing after a set number of years" do
+      planner = LongTermPlanner.new 3_000
+
+      life_plan = LifePlan.new(4)
+      life_plan.withdraw = 500
+      life_plan.withdraw_after = 2
+
+      results = planner.calculate_life_plan(life_plan)
+
+      expect(results.length).to eq(4)
+
+      expect(results[0].average.to_i).to eq(3_000)
+      expect(results[1].average.to_i).to eq(3_000)
+      expect(results[2].average.to_i).to be(2_500)
+      expect(results[3].average.to_i).to be(2_000)
     end
   end
 end

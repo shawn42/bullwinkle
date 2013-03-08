@@ -20,11 +20,17 @@ class LongTermPlanner
   # Withdraw years
   # contributing amount
   # withdraw amount
-  def calculate_next_years(years_ahead, life_plan = LifePlan.new)
+  def calculate_life_plan(life_plan = LifePlan.new)
     results = []
 
+    years_ahead = life_plan.total_years
+
     years_ahead.times do |year_count|
-      year_results = calculate_next_year(life_plan.contribution_for(year_count))
+      year_results = calculate_next_year(
+        life_plan.contribution_for(year_count),
+        life_plan.withdraw_for(year_count)
+      )
+
       @current_balance = year_results.average
       results << year_results
     end
