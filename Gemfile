@@ -3,6 +3,8 @@ source "https://rubygems.org"
 gem "rails", "~> 3.2.0"
 gem "pg"
 
+gem "devise"
+
 # Better random number generator
 gem "simple-random"
 
