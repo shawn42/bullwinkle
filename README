@@ -1,0 +1,15 @@
+Project Bullwinkle
+==================
+
+Financial planning application
+
+### Needs
+
+* PostgreSQL
+
+### Getting started
+
+* bundle install
+* Make your config/database.yml from the example
+* rake db:create:all
+
