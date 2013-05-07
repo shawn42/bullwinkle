@@ -24,10 +24,17 @@ group :assets do
   gem "uglifier", ">= 1.0.3"
 end
 
-group :test, :development do
+group :test do
   gem "rspec"
   gem "rspec-rails"
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'capybara-screenshot'
+end
+
+group :test, :development do
   gem "pry-rails"
   gem "pry-remote"
   gem "debugger-pry"
 end
+
